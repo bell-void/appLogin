@@ -13,15 +13,23 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
+
             $table->string('email')->unique();
+
+            // Verificación de correo
+            $table->timestamp('email_verified_at')->nullable();
+
             $table->string('password');
 
-            // Corrección aquí: Usamos foreignId y el nombre correcto de la tabla 'careers'
+            // Relación con careers
             $table->foreignId('career_id')->constrained('careers');
 
-            $table->boolean("terms_accepted")->default(false);
+            $table->boolean('terms_accepted')->default(false);
+
             $table->rememberToken();
+
             $table->timestamps();
         });
 

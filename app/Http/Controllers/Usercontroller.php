@@ -20,7 +20,6 @@ class UserController extends Controller
     // Procesa el registro del usuario
     public function store(Request $request)
     {
-        
         // 1. Validar los datos
         $validatedData = $request->validate([
             'name'           => 'required|string|max:255',
@@ -32,11 +31,14 @@ class UserController extends Controller
 
         // 2. Crear el usuario
         User::create([
-            'name'           => $validatedData['name'],
-            'email'          => $validatedData['email'],
-            'password'       => Hash::make($validatedData['password']),
-            'career_id'      => $validatedData['career_id'],
-            'terms_accepted' => true,
+            'name'               => $validatedData['name'],
+            'email'              => $validatedData['email'],
+            'password'           => Hash::make($validatedData['password']),
+            'career_id'          => $validatedData['career_id'],
+            'terms_accepted'     => true,
+
+            // Verificación automática
+            'email_verified_at'  => now(),
         ]);
 
         // 3. Redirección final
